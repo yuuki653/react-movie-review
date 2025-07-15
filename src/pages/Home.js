@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import MovieCard from "../components/MovieCard";
+import Header from "../components/Header";
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
@@ -39,19 +40,7 @@ const Home = () => {
 
   return (
     <div>
-      <h1>Popular Movies</h1>
-      <input
-        type="text"
-        placeholder="映画を検索"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            handleSearch();
-          }
-        }}
-      />
-      <button onClick={handleSearch}>検索</button>
+      <Header query={query} setQuery={setQuery} onSearch={handleSearch} />
 
       <ul style={mainStyles}>
         {movies.map((movie) => (
