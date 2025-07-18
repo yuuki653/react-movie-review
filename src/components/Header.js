@@ -35,6 +35,7 @@ const headerStyle = {
 const leftStyle = {
   flex: "1",
   textAlign: "left",
+  margin: "0",
 };
 
 const centerStyle = {

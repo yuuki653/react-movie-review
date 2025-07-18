@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import Header from "../components/Header";
 
 const MovieDetail = () => {
   const { id } = useParams();
+  const [movies, setMovies] = useState([]);
   const [movie, setMovie] = useState(null);
+  const [query, setQuery] = useState("");
   const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
   const navigate = useNavigate();
 
@@ -26,8 +29,25 @@ const MovieDetail = () => {
     return <p>読み込み中…</p>;
   }
 
+  const handleSearch = async () => {
+    if (!query.trim()) return;
+
+    try {
+      const res = await fetch(
+        `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(
+          query
+        )}&language=ja-JP`
+      );
+      const data = await res.json();
+      setMovies(data.results);
+    } catch (error) {
+      console.error("映画データの取得に失敗しました：", error);
+    }
+  };
+
   return (
     <>
+      <Header query={query} setQuery={setQuery} onSearch={handleSearch} />
       <div style={movieDetailStyle}>
         <img
           src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}

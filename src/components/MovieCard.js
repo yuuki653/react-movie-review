@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const MovieCard = ({ movie }) => {
+  if (!movie) return null;
+
   const { id, title, poster_path, vote_average, release_date } = movie;
   const imageUrl = `https://image.tmdb.org/t/p/w500${poster_path}`;
 
