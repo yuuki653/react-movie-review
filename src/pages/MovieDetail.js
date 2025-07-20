@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { getAuth } from "firebase/auth";
 import Header from "../components/Header";
+import ReviewForm from "../components/ReviewForm";
+import ReviewList from "../components/ReviewList";
 
 const MovieDetail = () => {
   const { id } = useParams();
-  const [movies, setMovies] = useState([]);
   const [movie, setMovie] = useState(null);
-  const [query, setQuery] = useState("");
+  const [reviews, setReviews] = useState([]);
+  const [review, setReview] = useState("");
   const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
   const navigate = useNavigate();
+  const auth = getAuth();
+  const user = auth.currentUser;
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -29,25 +34,20 @@ const MovieDetail = () => {
     return <p>読み込み中…</p>;
   }
 
-  const handleSearch = async () => {
-    if (!query.trim()) return;
-
-    try {
-      const res = await fetch(
-        `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(
-          query
-        )}&language=ja-JP`
-      );
-      const data = await res.json();
-      setMovies(data.results);
-    } catch (error) {
-      console.error("映画データの取得に失敗しました：", error);
-    }
+  const handleAddReview = () => {
+    if (!review.trim()) return;
+    const newReview = {
+      key: Date.now(),
+      id: Date.now(),
+      text: review,
+    };
+    setReviews([newReview, ...reviews]);
+    setReview("");
   };
 
   return (
     <>
-      <Header query={query} setQuery={setQuery} onSearch={handleSearch} />
+      <Header showSearch={false} />
       <div style={movieDetailStyle}>
         <img
           src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
@@ -59,8 +59,19 @@ const MovieDetail = () => {
           <p>評価：{movie.vote_average}</p>
           <p>公開日：{movie.release_date}</p>
           <p>{movie.overview || "あらすじがありません"}</p>
+          {user ? <button>お気に入りに追加</button> : ""}
         </div>
       </div>
+      {user ? (
+        <ReviewForm
+          review={review}
+          setReview={setReview}
+          onAddReview={handleAddReview}
+        />
+      ) : (
+        <p>ログインするとレビュー投稿ができます</p>
+      )}
+      <ReviewList reviews={reviews} />
 
       <button
         onClick={() => {
