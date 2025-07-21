@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getAuth, signOut } from "firebase/auth";
+import { useAuth } from "../context/AuthContext.js";
 
 const Header = ({
   query,
@@ -11,7 +12,7 @@ const Header = ({
 }) => {
   const navigate = useNavigate();
   const auth = getAuth();
-  const user = auth.currentUser;
+  const { user } = useAuth();
 
   const handleLogOut = async () => {
     try {
@@ -44,9 +45,12 @@ const Header = ({
       )}
       {showLogin &&
         (user ? (
-          <h3 style={rightStyle} onClick={handleLogOut}>
-            ログアウト
-          </h3>
+          <div style={rightStyle}>
+            <h3 onClick={handleLogOut}>ログアウト</h3>
+            <Link to="/movie/favorite">
+              <h3>お気に入り一覧</h3>
+            </Link>
+          </div>
         ) : (
           <Link to="/movie/login">
             <h3 style={rightStyle}>ログイン</h3>

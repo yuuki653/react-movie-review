@@ -2,17 +2,17 @@ import React from "react";
 
 const ReviewForm = ({ review, setReview, onAddReview }) => {
   return (
-    <>
-      <input
-        type="text"
+    <form onSubmit={onAddReview}>
+      <textarea
         value={review}
         placeholder="レビューを投稿"
         onChange={(e) => {
           setReview(e.target.value);
         }}
+        rows={4}
       />
-      <button onClick={onAddReview}>投稿</button>
-    </>
+      <button type="submit">投稿</button>
+    </form>
   );
 };
 
