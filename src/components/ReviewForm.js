@@ -2,18 +2,37 @@ import React from "react";
 
 const ReviewForm = ({ review, setReview, onAddReview }) => {
   return (
-    <form onSubmit={onAddReview}>
+    <form onSubmit={onAddReview} style={reviewFormStyle}>
       <textarea
         value={review}
         placeholder="レビューを投稿"
+        style={textareaStyle}
         onChange={(e) => {
           setReview(e.target.value);
         }}
-        rows={4}
       />
-      <button type="submit">投稿</button>
+      <button type="submit" style={buttonStyle}>
+        投稿
+      </button>
     </form>
   );
+};
+
+const reviewFormStyle = {
+  display: "flex",
+  flexDirection: "column",
+  width: "fit-content",
+};
+
+const textareaStyle = {
+  resize: "none",
+  width: "500px",
+  height: "70px",
+};
+
+const buttonStyle = {
+  width: "auto",
+  alignSelf: "flex-end",
 };
 
 export default ReviewForm;

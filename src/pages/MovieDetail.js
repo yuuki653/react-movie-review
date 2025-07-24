@@ -142,51 +142,58 @@ const MovieDetail = () => {
   return (
     <>
       <Header showSearch={false} />
-      <div style={movieDetailStyle}>
-        <img
-          src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-          alt={movie.title}
-          style={imgStyle}
-        />
-        <div>
-          <h2>{movie.title}</h2>
-          <p>評価：{movie.vote_average}</p>
-          <p>公開日：{movie.release_date}</p>
-          <p>{movie.overview || "あらすじがありません"}</p>
-          {user ? (
-            <button onClick={toggleFavorite}>
-              {isFavorite ? "お気に入り解除" : "お気に入り追加"}
-            </button>
-          ) : (
-            ""
-          )}
+      <div style={movieDetailPageStyle}>
+        <div style={movieDetailStyle}>
+          <img
+            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+            alt={movie.title}
+            style={imgStyle}
+          />
+          <div>
+            <h2>{movie.title}</h2>
+            <p>評価：{movie.vote_average}</p>
+            <p>公開日：{movie.release_date}</p>
+            <p>{movie.overview || "あらすじがありません"}</p>
+            {user ? (
+              <button onClick={toggleFavorite}>
+                {isFavorite ? "お気に入り解除" : "お気に入り追加"}
+              </button>
+            ) : (
+              ""
+            )}
+          </div>
         </div>
-      </div>
-      {user ? (
-        <ReviewForm
-          review={review}
-          setReview={setReview}
-          onAddReview={handlesubmit}
-        />
-      ) : (
-        <p>ログインするとレビュー投稿ができます</p>
-      )}
-      <ReviewList reviews={reviews} />
+        {user ? (
+          <ReviewForm
+            review={review}
+            setReview={setReview}
+            onAddReview={handlesubmit}
+          />
+        ) : (
+          <p>ログインするとレビュー投稿ができます</p>
+        )}
+        <ReviewList reviews={reviews} />
 
-      <button
-        onClick={() => {
-          navigate(-1);
-        }}
-      >
-        戻る
-      </button>
+        <button
+          onClick={() => {
+            navigate(-1);
+          }}
+        >
+          戻る
+        </button>
+      </div>
     </>
   );
 };
 
+const movieDetailPageStyle = {
+  width: "90%",
+  margin: "0 auto",
+};
+
 const movieDetailStyle = {
   display: "flex",
-  margin: "20px",
+  margin: "20px 0",
   padding: "20px",
   background: "#e7e7e7ff",
   borderRadius: "10px",

@@ -39,16 +39,29 @@ const Favorite = () => {
       <Header showSearch={false} />
       <div>
         <h2>お気に入り一覧</h2>
-        <div>
+        <div style={mainStyles}>
           {favorites.length > 0 ? (
             favorites.map((movie) => <MovieCard key={movie.id} movie={movie} />)
           ) : (
             <p>お気に入りの映画はありません</p>
           )}
         </div>
+        <button
+          onClick={() => {
+            navigate(-1);
+          }}
+        >
+          戻る
+        </button>
       </div>
     </>
   );
+};
+
+const mainStyles = {
+  display: "flex",
+  flexWrap: "wrap",
+  listStyleType: "none",
 };
 
 export default Favorite;

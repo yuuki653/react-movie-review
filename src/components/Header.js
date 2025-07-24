@@ -52,7 +52,7 @@ const Header = ({
             </Link>
           </div>
         ) : (
-          <Link to="/movie/login">
+          <Link to="/movie/login" style={favoriteBtn}>
             <h3 style={rightStyle}>ログイン</h3>
           </Link>
         ))}
@@ -83,6 +83,10 @@ const centerStyle = {
 const rightStyle = {
   flex: "1",
   textAlign: "right",
+};
+
+const favoriteBtn = {
+  color: "pink",
 };
 
 export default Header;
