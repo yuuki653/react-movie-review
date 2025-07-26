@@ -26,7 +26,9 @@ const Header = ({
 
   return (
     <header style={headerStyle}>
-      <h1 style={leftStyle}>映画レビューアプリ</h1>
+      <Link to="/">
+        <h2 style={leftStyle}>映画レビューアプリ</h2>
+      </Link>
       {showSearch && (
         <div style={centerStyle}>
           <input
@@ -46,14 +48,16 @@ const Header = ({
       {showLogin &&
         (user ? (
           <div style={rightStyle}>
-            <h3 onClick={handleLogOut}>ログアウト</h3>
+            <h3 style={logOutBtn} onClick={handleLogOut}>
+              ログアウト
+            </h3>
             <Link to="/movie/favorite">
-              <h3>お気に入り一覧</h3>
+              <h3 style={favoriteBtn}>お気に入り一覧</h3>
             </Link>
           </div>
         ) : (
-          <Link to="/movie/login" style={favoriteBtn}>
-            <h3 style={rightStyle}>ログイン</h3>
+          <Link to="/movie/login" style={{ textDecoration: "none" }}>
+            <h3 style={{ ...rightStyle, ...loginBtn }}>ログイン</h3>
           </Link>
         ))}
     </header>
@@ -82,7 +86,29 @@ const centerStyle = {
 
 const rightStyle = {
   flex: "1",
+  flex: "none",
   textAlign: "right",
+};
+
+const loginBtn = {
+  color: "#fff",
+  backgroundColor: "#eb6100",
+  cursor: "pointer",
+  textAlign: "center",
+  borderRadius: "10px",
+  width: "130px",
+  height: "35px",
+  textDecoration: "none",
+};
+
+const logOutBtn = {
+  color: "#fff",
+  backgroundColor: "#128a02ff",
+  cursor: "pointer",
+  textAlign: "center",
+  borderRadius: "10px",
+  width: "130px",
+  height: "35px",
 };
 
 const favoriteBtn = {

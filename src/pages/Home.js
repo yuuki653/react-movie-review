@@ -14,7 +14,11 @@ const Home = () => {
           `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=ja-JP`
         );
         const data = await res.json();
-        setMovies(data.results);
+        if (data.results) {
+          setMovies(data.results);
+        } else {
+          setMovies([]);
+        }
       } catch (error) {
         console.error("映画データの取得に失敗しました：", error);
       }
@@ -32,6 +36,7 @@ const Home = () => {
         )}&language=ja-JP`
       );
       const data = await res.json();
+
       setMovies(data.results);
     } catch (error) {
       console.error("映画データの取得に失敗しました：", error);
@@ -42,13 +47,17 @@ const Home = () => {
     <div>
       <Header query={query} setQuery={setQuery} onSearch={handleSearch} />
 
-      <ul style={mainStyles}>
-        {movies.map((movie) => (
-          <li key={movie.id}>
-            <MovieCard movie={movie} />
-          </li>
-        ))}
-      </ul>
+      {movies.length > 0 ? (
+        <ul style={mainStyles}>
+          {movies.map((movie) => (
+            <li key={movie.id}>
+              <MovieCard movie={movie} />
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>検索結果が見つかりませんでした</p>
+      )}
     </div>
   );
 };
