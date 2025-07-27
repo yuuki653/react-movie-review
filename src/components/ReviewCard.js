@@ -1,10 +1,20 @@
 import React from "react";
 
 const ReviewCard = ({ review }) => {
+  const reviewDate = (timestamp) => {
+    if (!timestamp) return "";
+
+    if (timestamp.toDate) {
+      return timestamp.toDate().toLocaleDateString("ja-JP");
+    }
+  };
   return (
-    <li key={review.id} style={cardStyle}>
+    <li style={cardStyle}>
       <div style={reviewStyle}>
-        <div>投稿者：{review.userName}</div>
+        <div style={nameAndDateStyle}>
+          <span>投稿者：{review.userName}</span>
+          <span>{reviewDate(review.createdAt)}</span>
+        </div>
         <hr />
         <div>{review.text}</div>
       </div>
@@ -17,6 +27,11 @@ const cardStyle = {
   border: "1px solid #5f5f5fff",
   marginTop: "10px",
   borderRadius: "10px",
+};
+
+const nameAndDateStyle = {
+  display: "flex",
+  justifyContent: "space-between",
 };
 
 const reviewStyle = {
