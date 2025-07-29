@@ -26,7 +26,7 @@ const Header = ({
 
   return (
     <header>
-      <div>
+      <div style={menuContainerStyle}>
         {showLogin &&
           (user ? (
             <div style={menuStyle}>
@@ -48,7 +48,7 @@ const Header = ({
             </div>
           ))}
       </div>
-      <div style={headerStyle}>
+      <div style={titeleContainerStyle}>
         <span style={titleStyle}>映画レビューアプリ</span>
         {showSearch && (
           <div style={searchStyle}>
@@ -74,10 +74,14 @@ const Header = ({
   );
 };
 
+const menuContainerStyle = {
+  backgroundColor: "#2e2e2eff",
+  height: "25px",
+};
+
 const menuStyle = {
   display: "flex",
   justifyContent: "flex-end",
-  backgroundColor: "#2e2e2eff",
   color: "#ffffff",
   padding: "0 10px",
   height: "25px",
@@ -85,7 +89,7 @@ const menuStyle = {
   alignItems: "center",
 };
 
-const headerStyle = {
+const titeleContainerStyle = {
   display: "flex",
   padding: "10px",
   alignItems: "center",
