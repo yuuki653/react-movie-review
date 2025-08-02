@@ -37,31 +37,68 @@ const Favorite = () => {
   return (
     <>
       <Header showSearch={false} />
-      <div>
-        <h2>お気に入り一覧</h2>
-        <div style={mainStyles}>
-          {favorites.length > 0 ? (
-            favorites.map((movie) => <MovieCard key={movie.id} movie={movie} />)
-          ) : (
-            <p>お気に入りの映画はありません</p>
-          )}
-        </div>
+      <div style={mainContainerStyle}>
         <button
+          style={backButtonStyle}
           onClick={() => {
             navigate(-1);
           }}
         >
           戻る
         </button>
+        <p style={favoriteTextStyle}>お気に入り一覧</p>
+        <hr style={borderStyle} />
+        <div style={movieContainerStyle}>
+          {favorites.length > 0 ? (
+            favorites.map((movie) => <MovieCard key={movie.id} movie={movie} />)
+          ) : (
+            <p>お気に入りの映画はありません</p>
+          )}
+        </div>
       </div>
     </>
   );
 };
 
-const mainStyles = {
+const mainContainerStyle = {
+  width: "90%",
+  margin: "40px auto",
+};
+
+const favoriteTextStyle = {
+  margin: "10px 0 0 0",
+  textAlign: "center",
+  fontWeight: "bold",
+  fontSize: "20px",
+};
+
+const borderStyle = {
+  border: "2px solid #ffd000ff",
+  width: "200px",
+  margin: "3px auto 20px auto",
+};
+
+const movieContainerStyle = {
   display: "flex",
   flexWrap: "wrap",
   listStyleType: "none",
+  padding: "0",
+  justifyContent: "center",
+  gap: "10px",
+};
+
+const backButtonStyle = {
+  border: "none",
+  padding: "0",
+  margin: "0",
+  background: "none",
+  color: "#5d9138ff",
+  textDecorationLine: "underline",
+  textDecorationThickness: "2px",
+  textUnderlineOffset: "5px",
+  textAlign: "center",
+  fontSize: "15px",
+  cursor: "pointer",
 };
 
 export default Favorite;

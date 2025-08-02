@@ -136,33 +136,58 @@ const MovieDetail = () => {
   };
 
   if (!movie) {
-    return <p>読み込み中…</p>;
+    return (
+      <p className="text-center text-gray-600 text-lg mt-8">読み込み中…</p>
+    );
   }
 
   return (
     <>
       <Header showSearch={false} />
-      <div style={movieDetailPageStyle}>
-        <div style={movieDetailStyle}>
-          <img
-            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-            alt={movie.title}
-            style={imgStyle}
-          />
-          <div>
-            <h2>{movie.title}</h2>
-            <p>評価：{movie.vote_average}</p>
-            <p>公開日：{movie.release_date}</p>
-            <p>{movie.overview || "あらすじがありません"}</p>
-            {user ? (
-              <button onClick={toggleFavorite}>
-                {isFavorite ? "お気に入り解除" : "お気に入り追加"}
-              </button>
-            ) : (
-              ""
-            )}
+      <div className="w-[90%] mx-auto my-10">
+        <button
+          className="text-green-600 underline decoration-2 underline-offset-4 text-sm hover:text-green-700 transition-colors"
+          onClick={() => {
+            navigate(-1);
+          }}
+        >
+          戻る
+        </button>
+
+        <p className="mt-2 text-center font-bold text-xl">映画詳細</p>
+        <hr className="border-2 border-purple-400 w-48 mx-auto mt-1 mb-5" />
+        <div className="mt-8 mb-12  bg-gray-200 p-5 rounded-lg">
+          <div className="flex flex-col md:flex-row items-center lg:items-start">
+            <img
+              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+              alt={movie.title}
+              className="w-48 md:w-64 mb-4 lg:mb-0 lg:mr-5 rounded shadow-md"
+            />
+            <div className="text-left flex-1 px-8">
+              <p className="text-2xl font-bold mb-3">{movie.title}</p>
+              <p className="mb-2 text-lg">評価：{movie.vote_average}</p>
+              <p className="mb-3 text-lg">公開日：{movie.release_date}</p>
+              {user ? (
+                <button
+                  onClick={toggleFavorite}
+                  className={`px-4 py-2 mb-3 rounded font-medium transition-colors ${
+                    isFavorite
+                      ? "bg-red-500 hover:bg-red-600 text-white"
+                      : "bg-blue-500 hover:bg-blue-600 text-white"
+                  }`}
+                >
+                  {isFavorite ? "お気に入り解除" : "お気に入り追加"}
+                </button>
+              ) : null}
+            </div>
+          </div>
+          <div className="mt-4">
+            <p className="text-gray-700 leading-relaxed">
+              {movie.overview || "あらすじがありません"}
+            </p>
           </div>
         </div>
+
         {user ? (
           <ReviewForm
             review={review}
@@ -170,38 +195,15 @@ const MovieDetail = () => {
             onAddReview={handlesubmit}
           />
         ) : (
-          <p>ログインするとレビュー投稿ができます</p>
+          <p className="mb-10 text-gray-600">
+            ログインするとレビュー投稿ができます
+          </p>
         )}
-        <ReviewList reviews={reviews} />
 
-        <button
-          onClick={() => {
-            navigate(-1);
-          }}
-        >
-          戻る
-        </button>
+        <ReviewList reviews={reviews} />
       </div>
     </>
   );
-};
-
-const movieDetailPageStyle = {
-  width: "90%",
-  margin: "0 auto",
-};
-
-const movieDetailStyle = {
-  display: "flex",
-  margin: "20px 0",
-  padding: "20px",
-  background: "#e7e7e7ff",
-  borderRadius: "10px",
-};
-
-const imgStyle = {
-  width: "250px",
-  marginRight: "20px",
 };
 
 export default MovieDetail;

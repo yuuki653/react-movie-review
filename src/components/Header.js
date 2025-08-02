@@ -26,27 +26,34 @@ const Header = ({
 
   return (
     <header>
-      <div style={menuContainerStyle}>
-        {showLogin &&
-          (user ? (
-            <div style={menuStyle}>
-              <span style={logOutBtn} onClick={handleLogOut}>
-                ログアウト
-              </span>
-              <Link to="/movie/favorite" style={favoriteBtn}>
-                <span>お気に入り一覧</span>
-              </Link>
-            </div>
-          ) : (
-            <div style={menuStyle}>
-              <Link to="/movie/login" style={loginBtn}>
-                <span>ログイン</span>
-              </Link>
-              <Link to="/movie/signUp" style={signUpBtn}>
-                <span>新規登録</span>
-              </Link>
-            </div>
-          ))}
+      <div style={menuBarStyle}>
+        <div style={menuContainerStyle}>
+          <Link to="/" style={homeButton}>
+            <span>ホーム</span>
+          </Link>
+          {showLogin &&
+            (user ? (
+              <div style={menuStyle}>
+                {/* <span> */}
+                <span style={logOutButton} onClick={handleLogOut}>
+                  ログアウト
+                </span>
+                <Link to="/movie/favorite" style={favoriteButton}>
+                  <span>お気に入り一覧</span>
+                </Link>
+                {/* </span> */}
+              </div>
+            ) : (
+              <div style={menuStyle}>
+                <Link to="/movie/login" style={loginButton}>
+                  <span>ログイン</span>
+                </Link>
+                <Link to="/movie/signUp" style={signUpButton}>
+                  <span>新規登録</span>
+                </Link>
+              </div>
+            ))}
+        </div>
       </div>
       <div style={titeleContainerStyle}>
         <span style={titleStyle}>映画レビューアプリ</span>
@@ -74,19 +81,90 @@ const Header = ({
   );
 };
 
-const menuContainerStyle = {
+const menuBarStyle = {
   backgroundColor: "#2e2e2eff",
   height: "25px",
 };
 
+const menuContainerStyle = {
+  display: "flex",
+  justifyContent: "space-between",
+  margin: "0 auto",
+  width: "90%",
+  fontWeight: "bold",
+};
+
+const homeButton = {
+  color: "#2e2e2eff",
+  backgroundColor: "#fd8d8dff",
+  height: "25px",
+  display: "flex",
+  alignItems: "center",
+  padding: "0 5px",
+  fontSize: "14px",
+  cursor: "pointer",
+  textDecoration: "none",
+};
+
 const menuStyle = {
   display: "flex",
-  justifyContent: "flex-end",
-  color: "#ffffff",
-  padding: "0 10px",
   height: "25px",
   gap: "10px",
   alignItems: "center",
+};
+
+const loginButton = {
+  color: "#2e2e2eff",
+  backgroundColor: "#dad6d6ff",
+  cursor: "pointer",
+  textAlign: "center",
+  height: "25px",
+  display: "flex",
+  alignItems: "center",
+  padding: "0 5px",
+  margin: "0",
+  fontSize: "14px",
+  textDecoration: "none",
+};
+
+const signUpButton = {
+  color: "#2e2e2eff",
+  backgroundColor: "#dad6d6ff",
+  cursor: "pointer",
+  textAlign: "center",
+  height: "25px",
+  display: "flex",
+  alignItems: "center",
+  padding: "0 5px",
+  margin: "0",
+  fontSize: "14px",
+  textDecoration: "none",
+};
+
+const logOutButton = {
+  color: "#2e2e2eff",
+  backgroundColor: "#dad6d6ff",
+  cursor: "pointer",
+  textAlign: "center",
+  height: "25px",
+  display: "flex",
+  alignItems: "center",
+  padding: "0 5px",
+  margin: "0",
+  fontSize: "14px",
+};
+
+const favoriteButton = {
+  color: "#2e2e2eff",
+  backgroundColor: "#dad6d6ff",
+  height: "25px",
+  display: "flex",
+  alignItems: "center",
+  margin: "0",
+  padding: "0 5px",
+  fontSize: "14px",
+  cursor: "pointer",
+  textDecoration: "none",
 };
 
 const titeleContainerStyle = {
@@ -95,6 +173,7 @@ const titeleContainerStyle = {
   alignItems: "center",
   backgroundColor: "#fff",
   color: "#363636ff",
+  height: "80px",
   flexWrap: "wrap",
   gap: "15px",
   boxShadow: "0 3px 10px 0 #b6b6b6ff",
@@ -133,60 +212,6 @@ const buttonStyle = {
   backgroundColor: "#007bff",
   color: "white",
   cursor: "pointer",
-};
-
-const loginBtn = {
-  color: "#2e2e2eff",
-  backgroundColor: "#dad6d6ff",
-  cursor: "pointer",
-  textAlign: "center",
-  height: "25px",
-  display: "flex",
-  alignItems: "center",
-  padding: "0 5px",
-  margin: "0",
-  fontSize: "14px",
-  textDecoration: "none",
-};
-
-const signUpBtn = {
-  color: "#2e2e2eff",
-  backgroundColor: "#dad6d6ff",
-  cursor: "pointer",
-  textAlign: "center",
-  height: "25px",
-  display: "flex",
-  alignItems: "center",
-  padding: "0 5px",
-  margin: "0",
-  fontSize: "14px",
-  textDecoration: "none",
-};
-
-const logOutBtn = {
-  color: "#000000",
-  backgroundColor: "#dad6d6ff",
-  cursor: "pointer",
-  textAlign: "center",
-  height: "25px",
-  display: "flex",
-  alignItems: "center",
-  padding: "0 5px",
-  margin: "0",
-  fontSize: "14px",
-};
-
-const favoriteBtn = {
-  color: "#000000",
-  backgroundColor: "#dad6d6ff",
-  height: "25px",
-  display: "flex",
-  alignItems: "center",
-  margin: "0",
-  padding: "0 5px",
-  fontSize: "14px",
-  cursor: "pointer",
-  textDecoration: "none",
 };
 
 export default Header;

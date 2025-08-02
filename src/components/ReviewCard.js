@@ -9,34 +9,53 @@ const ReviewCard = ({ review }) => {
     }
   };
   return (
-    <li style={cardStyle}>
-      <div style={reviewStyle}>
-        <div style={nameAndDateStyle}>
+    <li style={reviewContainerStyle}>
+      <div style={reviewCardStyle}>
+        <div style={nameContainerStyle}>
           <span>投稿者：{review.userName}</span>
-          <span>{reviewDate(review.createdAt)}</span>
+          <span>[{reviewDate(review.createdAt)}]</span>
         </div>
-        <hr />
-        <div>{review.text}</div>
+        <div style={reviewTextStyle}>{review.text}</div>
+        <div style={editContainerStyle}>
+          <span>編集</span>
+          <span>削除</span>
+        </div>
       </div>
+      <hr style={borderStyle} />
     </li>
   );
 };
 
-const cardStyle = {
-  backgroundColor: "#fde2fdff",
-  border: "1px solid #5f5f5fff",
+const reviewContainerStyle = {
   marginTop: "10px",
-  borderRadius: "10px",
-};
-
-const nameAndDateStyle = {
-  display: "flex",
-  justifyContent: "space-between",
-};
-
-const reviewStyle = {
   margin: "10px auto",
-  width: "95%",
+};
+
+const reviewCardStyle = {
+  width: "90%",
+  margin: "0 auto",
+};
+
+const nameContainerStyle = {
+  display: "flex",
+  fontSize: "12px",
+  gap: "20px",
+};
+
+const editContainerStyle = {
+  display: "flex",
+  fontSize: "12px",
+  gap: "20px",
+};
+
+const reviewTextStyle = {
+  fontSize: "18px",
+  margin: "5px 0 5px 0",
+};
+
+const borderStyle = {
+  border: "1px solid #ecd0ffff",
+  margin: "20px auto",
 };
 
 export default ReviewCard;

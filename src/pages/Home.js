@@ -86,43 +86,85 @@ const Home = () => {
     <div>
       <Header query={query} setQuery={setQuery} onSearch={handleSearch} />
 
-      {isSearched && (
-        <div>
-          <button onClick={handleBackToHome}>人気映画一覧に戻る</button>
-        </div>
-      )}
-
-      {(loading || isSearching) && (
-        <div>{loading ? "読み込み中…" : "検索中…"}</div>
-      )}
-
-      {(!loading || !isSearching) &&
-        (movies.length > 0 ? (
-          <ul style={mainStyles}>
-            {movies.map((movie) => (
-              <li key={movie.id}>
-                <MovieCard movie={movie} />
-              </li>
-            ))}
-          </ul>
+      <div style={mainContainerStyle}>
+        {isSearched && (
+          <div>
+            <button style={backButtonStyle} onClick={handleBackToHome}>
+              人気映画一覧に戻る
+            </button>
+          </div>
+        )}
+        {isSearched ? (
+          <p style={movieTextStyle}>検索結果一覧</p>
         ) : (
-          <p>
-            {isSearched
-              ? `「${searchedQuery}」の検索結果が見つかりませんでした`
-              : "映画が見つかりませんでした"}
-          </p>
-        ))}
+          <p style={movieTextStyle}>人気映画一覧</p>
+        )}
+        <hr style={borderStyle} />
+
+        {(loading || isSearching) && (
+          <div>{loading ? "読み込み中…" : "検索中…"}</div>
+        )}
+
+        {(!loading || !isSearching) &&
+          (movies.length > 0 ? (
+            <ul style={movieContainerStyle}>
+              {movies.map((movie) => (
+                <li key={movie.id}>
+                  <MovieCard movie={movie} />
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>
+              {isSearched
+                ? `「${searchedQuery}」の検索結果が見つかりませんでした`
+                : "映画が見つかりませんでした"}
+            </p>
+          ))}
+      </div>
     </div>
   );
 };
 
-const mainStyles = {
+const mainContainerStyle = {
+  width: "90%",
+  margin: "40px auto",
+};
+
+const movieContainerStyle = {
   display: "flex",
   flexWrap: "wrap",
   listStyleType: "none",
-  padding: "0 20px",
+  padding: "0",
   justifyContent: "center",
   gap: "10px",
+};
+
+const backButtonStyle = {
+  border: "none",
+  padding: "0",
+  margin: "0",
+  background: "none",
+  color: "#5d9138ff",
+  textDecorationLine: "underline",
+  textDecorationThickness: "2px",
+  textUnderlineOffset: "5px",
+  textAlign: "center",
+  fontSize: "15px",
+  cursor: "pointer",
+};
+
+const movieTextStyle = {
+  margin: "10px 0 0 0",
+  textAlign: "center",
+  fontWeight: "bold",
+  fontSize: "20px",
+};
+
+const borderStyle = {
+  border: "2px solid #0066ffff",
+  width: "200px",
+  margin: "3px auto 20px auto",
 };
 
 export default Home;
