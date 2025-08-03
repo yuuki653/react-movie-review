@@ -9,6 +9,7 @@ import {
   getDocs,
   collection,
   addDoc,
+  updateDoc,
   serverTimestamp,
   orderBy,
   query,
@@ -135,6 +136,53 @@ const MovieDetail = () => {
     fetchReviews();
   };
 
+  // レビュー編集
+  const handleEditReview = async (reviewId, newText) => {
+    if (!user) return;
+
+    try {
+      const reviewDocRef = doc(
+        db,
+        "reviews",
+        movie.id.toString(),
+        "comments",
+        reviewId
+      );
+      await updateDoc(reviewDocRef, {
+        text: newText,
+        updatedAt: serverTimestamp(),
+      });
+
+      fetchReviews();
+    } catch (error) {
+      console.error("レビューの編集に失敗：", error);
+      alert("レビューの編集に失敗しました");
+    }
+  };
+  // レビュー削除
+  const handleDeleteReview = async (reviewId) => {
+    if (!user) return;
+
+    const confirmDelete = window.confirm("このレビューを削除しますか？");
+    if (!confirmDelete) return;
+
+    try {
+      const reviewDocRef = doc(
+        db,
+        "reviews",
+        movie.id.toString(),
+        "comments",
+        reviewId
+      );
+      await deleteDoc(reviewDocRef);
+
+      fetchReviews();
+    } catch (error) {
+      console.error("レビューの削除に失敗：", error);
+      alert("レビューの削除に失敗しました");
+    }
+  };
+
   if (!movie) {
     return (
       <p className="text-center text-gray-600 text-lg mt-8">読み込み中…</p>
@@ -165,7 +213,7 @@ const MovieDetail = () => {
             />
             <div className="text-left flex-1 px-8">
               <p className="text-2xl font-bold mb-3">{movie.title}</p>
-              <p className="mb-2 text-lg">評価：{movie.vote_average}</p>
+              <p className="mb-2 text-lg">評価：⭐{movie.vote_average}</p>
               <p className="mb-3 text-lg">公開日：{movie.release_date}</p>
               {user ? (
                 <button
@@ -200,7 +248,11 @@ const MovieDetail = () => {
           </p>
         )}
 
-        <ReviewList reviews={reviews} />
+        <ReviewList
+          reviews={reviews}
+          onEdit={handleEditReview}
+          onDelete={handleDeleteReview}
+        />
       </div>
     </>
   );

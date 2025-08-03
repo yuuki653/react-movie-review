@@ -86,28 +86,33 @@ const Home = () => {
     <div>
       <Header query={query} setQuery={setQuery} onSearch={handleSearch} />
 
-      <div style={mainContainerStyle}>
+      <div className="w-[90%] mx-auto my-10">
         {isSearched && (
           <div>
-            <button style={backButtonStyle} onClick={handleBackToHome}>
+            <button
+              className="text-green-600 underline decoration-2 underline-offset-4 text-sm hover:text-green-700 transition-colors"
+              onClick={handleBackToHome}
+            >
               人気映画一覧に戻る
             </button>
           </div>
         )}
         {isSearched ? (
-          <p style={movieTextStyle}>検索結果一覧</p>
+          <p className="mt-2 text-center font-bold text-xl">検索結果一覧</p>
         ) : (
-          <p style={movieTextStyle}>人気映画一覧</p>
+          <p className="mt-2 text-center font-bold text-xl">人気映画一覧</p>
         )}
-        <hr style={borderStyle} />
+        <hr className="border-2 border-blue-400 w-48 mx-auto mt-1 mb-5" />
 
         {(loading || isSearching) && (
-          <div>{loading ? "読み込み中…" : "検索中…"}</div>
+          <div className="text-center text-gray-600 text-lg mt-8">
+            {loading ? "読み込み中…" : "検索中…"}
+          </div>
         )}
 
         {(!loading || !isSearching) &&
           (movies.length > 0 ? (
-            <ul style={movieContainerStyle}>
+            <ul className="flex flex-wrap justify-center">
               {movies.map((movie) => (
                 <li key={movie.id}>
                   <MovieCard movie={movie} />
@@ -115,7 +120,7 @@ const Home = () => {
               ))}
             </ul>
           ) : (
-            <p>
+            <p className="text-center text-gray-600 text-lg mt-8">
               {isSearched
                 ? `「${searchedQuery}」の検索結果が見つかりませんでした`
                 : "映画が見つかりませんでした"}
@@ -124,47 +129,6 @@ const Home = () => {
       </div>
     </div>
   );
-};
-
-const mainContainerStyle = {
-  width: "90%",
-  margin: "40px auto",
-};
-
-const movieContainerStyle = {
-  display: "flex",
-  flexWrap: "wrap",
-  listStyleType: "none",
-  padding: "0",
-  justifyContent: "center",
-  gap: "10px",
-};
-
-const backButtonStyle = {
-  border: "none",
-  padding: "0",
-  margin: "0",
-  background: "none",
-  color: "#5d9138ff",
-  textDecorationLine: "underline",
-  textDecorationThickness: "2px",
-  textUnderlineOffset: "5px",
-  textAlign: "center",
-  fontSize: "15px",
-  cursor: "pointer",
-};
-
-const movieTextStyle = {
-  margin: "10px 0 0 0",
-  textAlign: "center",
-  fontWeight: "bold",
-  fontSize: "20px",
-};
-
-const borderStyle = {
-  border: "2px solid #0066ffff",
-  width: "200px",
-  margin: "3px auto 20px auto",
 };
 
 export default Home;

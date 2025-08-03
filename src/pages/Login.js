@@ -21,112 +21,55 @@ const Login = () => {
 
   return (
     <>
-      <Header showSearch={false} showLogin={false} />
+      <Header showSearch={false} />
 
-      <div style={loginContainerStyle}>
-        <p style={loginTextStyle}>ログイン</p>
-        <hr style={borderStyle} />
-        <div style={inputContainerStyle}>
+      <div className="w-[90%] mx-auto my-10">
+        <button
+          className="text-green-600 underline decoration-2 underline-offset-4 text-sm hover:text-green-700 transition-colors"
+          onClick={() => {
+            navigate(-1);
+          }}
+        >
+          戻る
+        </button>
+        <p className="mt-2 text-center font-bold text-xl">ログイン</p>
+        <hr className="border-2 border-green-400 w-48 mx-auto mt-1 mb-5" />
+        <div className="flex flex-col items-center mx-auto mt-10 gap-2 w-64">
           <input
-            style={inputStyle}
+            className="px-4 py-2 rounded font-medium border border-gray-500 focus:outline-none focus:border-green-400"
             type="email"
             placeholder="メールアドレス"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
           <input
-            style={inputStyle}
+            className="px-4 py-2 rounded font-medium border border-gray-500 focus:outline-none focus:border-green-400"
             type="password"
             placeholder="パスワード"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button style={buttonStyle} onClick={handleLogin}>
+          <button
+            className="px-4 py-2 mt-5 rounded font-medium transition-colors bg-green-500 hover:bg-green-600 text-white"
+            onClick={handleLogin}
+          >
             ログイン
           </button>
         </div>
-        <p style={signUpStyle}>
+        <p className="mt-14 text-center">
           登録していない方は
           <span>
-            <Link to="/movie/signup" style={signUpButtonStyle}>
+            <Link
+              to="/movie/signup"
+              className="px-4 py-2 mt-5 ml-1 rounded font-medium transition-colors bg-orange-500 hover:bg-orange-600 text-white"
+            >
               新規登録
             </Link>
           </span>
         </p>
       </div>
-      <button
-        onClick={() => {
-          navigate(-1);
-        }}
-      >
-        戻る
-      </button>
     </>
   );
-};
-
-const loginContainerStyle = {
-  textAlign: "center",
-  minWidth: "250px",
-  margin: "50px 20px",
-};
-
-const loginTextStyle = {
-  margin: "10px 0 0 0",
-  fontWeight: "bold",
-  fontSize: "20px",
-};
-
-const borderStyle = {
-  border: "2px solid #00ff55ff",
-  width: "200px",
-  margin: "3px auto 20px auto",
-};
-
-const inputContainerStyle = {
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  marginTop: "40px",
-  gap: "10px",
-};
-
-const inputStyle = {
-  padding: "8px",
-  fontSize: "16px",
-  borderRadius: "5px",
-  border: "1px solid #ccc",
-  width: "250px",
-  maxWidth: "100%",
-};
-
-const buttonStyle = {
-  marginTop: "20px",
-  padding: "8px 16px",
-  fontSize: "16px",
-  borderRadius: "5px",
-  border: "none",
-  backgroundColor: "#02b43dff",
-  color: "white",
-  width: "100px",
-  cursor: "pointer",
-};
-
-const signUpStyle = {
-  marginTop: "60px",
-};
-
-const signUpButtonStyle = {
-  marginLeft: "5px",
-  padding: "8px 16px",
-  fontSize: "16px",
-  borderRadius: "5px",
-  border: "none",
-  backgroundColor: "#ff5e00ff",
-  color: "white",
-  width: "100px",
-  textDecoration: "none",
-  cursor: "pointer",
 };
 
 export default Login;

@@ -8,34 +8,19 @@ const MovieCard = ({ movie }) => {
   const imageUrl = `https://image.tmdb.org/t/p/w500${poster_path}`;
 
   return (
-    <Link to={`/movie/${id}`} style={linkStyle}>
-      <div style={cardStyle}>
-        <img src={imageUrl} alt={title} style={cardImg} />
-        <h3>{title}</h3>
-        <p>⭐{vote_average}</p>
-        <p>公開日：{release_date}</p>
+    <Link to={`/movie/${id}`}>
+      <div className="m-3 p-3 w-64 bg-gray-200 hover:bg-gray-300 transition-colors rounded-lg">
+        <img
+          src={imageUrl}
+          alt={title}
+          className="w-full h-80 object-cover rounded shadow-md"
+        />
+        <h3 className="text-md font-bold my-2">{title}</h3>
+        <p className="mb-2 text-md">⭐{vote_average}</p>
+        <p className="mb-2 text-sm">公開日：{release_date}</p>
       </div>
     </Link>
   );
-};
-
-const linkStyle = {
-  textDecoration: "none",
-  color: "inherit",
-};
-
-const cardStyle = {
-  width: "250px",
-  margin: "10px",
-  padding: "10px",
-  background: "#e7e7e7ff",
-  borderRadius: "10px",
-};
-
-const cardImg = {
-  width: "100%",
-  height: "350px",
-  objectFit: "cover",
 };
 
 export default MovieCard;
